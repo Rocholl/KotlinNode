@@ -3,6 +3,7 @@ const Bicycle = db.bicycles;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Bicycle
+// req --> request (contains the body)
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.brand || !req.body.model) {
@@ -31,7 +32,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all Bicycles from the database.
 exports.findAll = (req, res) => {
   
     Bicycle.findAll()
@@ -46,9 +47,31 @@ exports.findAll = (req, res) => {
       });
 };
 
-// Find a single Tutorial with an id
+// Find a single Bicycle with an id
 exports.findOne = (req, res) => {
-  
+  let id = req.params.id;
+  Bicycle.findByPk(id)
+    .then(data => {
+      console.log("estos son los datos")
+      console.log(data);
+      if(!data){
+        res.status(400).send({
+          message:
+            "No Bicycle found with that id"
+        })
+      }
+      res.send(data);
+      return;
+    })
+    .catch(err => {
+      console.log(err.message);
+      console.log("hola");
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving bicycle with id"
+      });
+      return;
+    });
 };
 
 // Update a Tutorial by the id in the request
