@@ -2,9 +2,13 @@ package com.example.bicycles
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
 import com.example.bicycles.models.Bicycle
+import org.json.JSONException
 
 class BicycleListActivity : AppCompatActivity() {
     private lateinit var bicycles: ArrayList<Bicycle>
@@ -16,33 +20,50 @@ class BicycleListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bicycle_list)
 
+        bicycles = ArrayList<Bicycle>()
+
         viewManager = LinearLayoutManager(this)
+
         viewAdapter = BicycleAdapter(bicycles)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerViewBicycles).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
 
-            // use a linear layout manager
-            layoutManager = viewManager
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerViewBicycles)
+        // use a linear layout manager
+        recyclerView.layoutManager = viewManager
 
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-
-        }
+        // specify an viewAdapter (see also next example)
+        recyclerView.adapter = viewAdapter
 
         getAllBicycles()
 
-        view
+        (recyclerView.adapter as BicycleAdapter).notifyDataSetChanged()
     }
 
-    private fun getAllBicycles() {
-        bicycles = ArrayList<Bicycle>()
+    private fun getAllBicyclesLocally() {
+        //bicycles = ArrayList<Bicycle>()
 
         bicycles.add(Bicycle("BH", "star"))
         bicycles.add(Bicycle("Orbea", "machine"))
     }
 
-
+    private fun getAllBicycles() {
+        val url = "http://192.168.0.164:8080/api/bicycles"
+        val request =
+                JsonArrayRequest(Request.Method.GET, url, null, { response ->
+                    try {
+                        for (i in 0 until response.length()) {
+                            val bicycle = response.getJSONObject(i)
+                            val model = bicycle.getString("model")
+                            val brand = bicycle.getString("brand")
+                            bicycles.add(Bicycle(brand, model))
+                        }
+                        viewManager.bicycleList = bicycles
+                        viewAdapter.notifyDataSetChanged()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                }, { error -> error.printStackTrace() })
+        requestQueue?.add(request)
+    }
 }
+
