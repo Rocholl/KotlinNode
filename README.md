@@ -43,3 +43,9 @@ And finally start the frontend Android App with Android Studio.
 * [Git](https://git-scm.com) - You can install it from https://git-scm.com/downloads.
 * [MySQL](https://www.mysql.com) - You can install it from https://www.mysql.com/downloads/.
 * [Node.js](https://nodejs.org) - Install node.js from https://nodejs.org/es/download/. It's advisable to install the LTS version.
+
+## Acknowledgments
+
+* https://developer.android.com/training/volley/requestqueue?hl=es - How to configure a Singleton.
+* https://developer.android.com/training/volley?hl=es - How to send data with Volley from Kotlin App.
+* https://www.varvet.com/blog/kotlin-with-volley/ - Kotlin with Volley
