@@ -2,7 +2,7 @@
 
 It's just that...
 
-![alt text](https://github.com/tcrurav/KotlinNode/blob/master/Readme.png)
+![alt text](https://github.com/tcrurav/KotlinNode/blob/master/Readme-2.png)
 
 ### Prerequisites
 
@@ -27,13 +27,13 @@ cd backend
 npm install
 ```
 
+After that start your MySQL Server and import the database db_bicycles.sql included in the /backend directory of this project.
+
 Start the backend project
 
 ```
 node server.js
 ```
-
-After that run your MySQL Server.
 
 And finally start the frontend Android App with Android Studio.
 
