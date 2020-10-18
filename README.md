@@ -2,7 +2,7 @@
 
 It's just that...
 
-![alt text](https://github.com/tcrurav/KotlinNode/blob/master/Readme-2.png)
+![alt text](https://github.com/tcrurav/KotlinNodeFullCRUD/blob/master/Readme-2.png)
 
 ### Prerequisites
 
