@@ -28,7 +28,7 @@ db.sequelize.sync();
 //     console.log("Drop and re-sync db.");
 // });
 
-require("./app/routes/bicycle.routes")(app);
+require("./app/routes/whisky.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
